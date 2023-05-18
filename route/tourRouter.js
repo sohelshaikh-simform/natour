@@ -3,10 +3,11 @@ const path =require('path')
 const router = express.Router();
 const tourController=require('../controller/tourController')
 // require('../public/over')
-router.param('id',tourController.checkId);
+// router.param('id',tourController.checkId);
 router.route("/")
     .get(tourController.getAllTours)
-    .post(tourController.checkbody,tourController.createTour);
+    .post(tourController.createTour);
+    // .post(tourController.checkbody,tourController.createTour);
 
 router.route("/:id")
     .get(tourController.getTour)
