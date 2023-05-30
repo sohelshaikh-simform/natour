@@ -6,7 +6,7 @@ const tourSchema = new mongoose.Schema({
       unique: true,
       trim:true
     },
-    durations:{
+    duration:{
       type:Number,
       required:[true,'A Tour must have duration']
     },
@@ -15,7 +15,8 @@ const tourSchema = new mongoose.Schema({
       required:[true,'A Tour must have group size']
     },
     difficulty:{
-      type:Number,
+      type:String,
+      enum:['easy','medium','difficult'],
       required:[true,'A Tour must have difficulty']
     },
     ratingAverage: {
@@ -43,7 +44,12 @@ const tourSchema = new mongoose.Schema({
       type:String,
       required:[true,"A Tour must have  a cover Page"]
     },
-    images:[String]
+    images:[String],
+    createdAt:{
+      type:Date,
+      default:Date.now()
+    },
+    startDates:[Date]
   });
   
   const Tour = mongoose.model("Tour", tourSchema);
