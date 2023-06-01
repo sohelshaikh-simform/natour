@@ -74,8 +74,10 @@ const updateTour = async (req, res) => {
 };
 
 const createTour = async (req, res) => {
+
   try {
-    const newTour = await Tour.create(req.body);
+    console.log(req.body,"ADSgv");;
+    const newTour = await Tour.create(req.body)
     res.status(201).json({
       status: "Success",
       data: {
@@ -85,7 +87,7 @@ const createTour = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: "invalid data send",
+      message: err,
     });
   }
 };
@@ -130,11 +132,11 @@ const getTourStats = async (req, res) => {
           avgPrice: 1,
         },
       },
-      {
-        $match: {
-          _id: { $ne: "EASY" },
-        },
-      },
+      // {
+      //   $match: {
+      //     _id: { $ne: "EASY" },
+      //   },
+      // },
     ]);
     res.status(200).json({
       status: "Success",

@@ -29,7 +29,7 @@ class APIFeature {
   
     limitFields() {
       if (this.queryString.fields) {
-        console.log(this.queryString.fields);
+        // console.log(this.queryString.fields);
         let fields = this.queryString.fields.split(",").join(" ");
         this.query = this.query.select(fields);
       } else {
@@ -42,7 +42,7 @@ class APIFeature {
       const page = this.queryString.page * 1 || 1;
       const limit = this.queryString.limit * 1 || 100;
       const skip = (page - 1) * limit;
-      console.log(skip, limit);
+    //   console.log(skip, limit);
       this.query = this.query.skip(skip).limit(limit);
       return this;
     }
