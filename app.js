@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const tourRouter = require("./route/tourRouter");
+const userRouter=require('./route/userRouter')
 const globalErrorHandle = require("./controller/errorController");
 const dotenv = require("dotenv");
 const AppError = require("./utils/appError");
@@ -8,6 +9,8 @@ app.use(express.json());
 app.use(express.static("./public"));
 
 
+
+app.use("/api/v1/user", userRouter);
 app.use("/api/v1/tours", tourRouter);
 
 app.get("*", (req, res, next) => {
