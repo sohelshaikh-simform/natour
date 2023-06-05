@@ -1,6 +1,6 @@
 const jwt=require("jsonwebtoken");
 require('dotenv').config()
-const auth=(req,res)=>{;
+const auth=(req,res,next)=>{;
     try{
         let token=req.headers.authorization;
         if(token){
@@ -11,13 +11,11 @@ const auth=(req,res)=>{;
         else{
             return res.status(401).json({message:" token error"})
         }
-        res.status(200).json({
-            status:"Successfully Authorize"
-        })
+        
+        next()
     }
     catch(err){
-        // console.log((err));
-        res.status(401).json({message:"Unauthorize User"})
+        return res.status(401).json({message:"Unauthorize User"})
     }
 }
-module.exports={auth}
+module.exports=auth
