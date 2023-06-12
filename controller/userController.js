@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
+// Sign up User
 const register = async (req, res) => {
   try {
     console.log(req.body);
@@ -37,6 +38,7 @@ const register = async (req, res) => {
   }
 };
 
+// Sign In User
 const login = async (req, res) => {
   try {
     const existUser = await User.findOne({ userName: req.body.userName });

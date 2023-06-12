@@ -3,6 +3,7 @@ class APIFeature {
       this.query = query;
       this.queryString = queryString;
     }
+    
     filter() {
       const queryObj = { ...this.queryString };
       const excludedField = ["sort", "page", "limit", "fields"];
@@ -15,8 +16,9 @@ class APIFeature {
       queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
       this.query.find(JSON.parse(queryStr));
       return this;
-      // let query = Tour.find(JSON.parse(queryStr));
     }
+
+    // Sorting
     sort() {
       if (this.queryString.sort) {
         let sortBy = this.queryString.sort.split(',').join(' ');
@@ -27,9 +29,9 @@ class APIFeature {
       return this;
     }
   
+    // Limit Feilds or Projection
     limitFields() {
       if (this.queryString.fields) {
-        // console.log(this.queryString.fields);
         let fields = this.queryString.fields.split(",").join(" ");
         this.query = this.query.select(fields);
       } else {
@@ -38,11 +40,11 @@ class APIFeature {
       return this;
     }
   
+    // Pagination
     paginate() {
       const page = this.queryString.page * 1 || 1;
       const limit = this.queryString.limit * 1 || 100;
       const skip = (page - 1) * limit;
-    //   console.log(skip, limit);
       this.query = this.query.skip(skip).limit(limit);
       return this;
     }

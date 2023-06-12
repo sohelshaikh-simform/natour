@@ -10,9 +10,9 @@ const aliasTopTours = (req, res, next) => {
   next();
 };
 
+// Get All Tour include Sorting,Pagination,LimitFields
 const getAllTours = async (req, res) => {
   try {
-    // Execute Query
     const features = new APIFeature(Tour.find(), req.query)
       .filter()
       .sort()
@@ -35,6 +35,7 @@ const getAllTours = async (req, res) => {
   }
 };
 
+// Get a Details about Perticular Tour
 const getTour = async (req, res) => {
   try {
     const tour = await Tour.findById(req.params.id);
@@ -52,13 +53,13 @@ const getTour = async (req, res) => {
   }
 };
 
+// Update Tour
 const updateTour = async (req, res) => {
   try {
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
-    // console.log(tour);
     res.status(201).json({
       status: "Success",
       data: {
@@ -73,10 +74,9 @@ const updateTour = async (req, res) => {
   }
 };
 
+// Create a Tour
 const createTour = async (req, res) => {
-
   try {
-    console.log(req.body,"ADSgv");;
     const newTour = await Tour.create(req.body)
     res.status(201).json({
       status: "Success",
@@ -92,6 +92,7 @@ const createTour = async (req, res) => {
   }
 };
 
+// Delete Tour
 const deletTour = async (req, res) => {
   try {
     const tour = await Tour.findByIdAndDelete(req.params.id);
@@ -107,6 +108,7 @@ const deletTour = async (req, res) => {
   }
 };
 
+// get Tour Stats
 const getTourStats = async (req, res) => {
   try {
     const stat = await Tour.aggregate([
@@ -131,12 +133,7 @@ const getTourStats = async (req, res) => {
         $sort: {
           avgPrice: 1,
         },
-      },
-      // {
-      //   $match: {
-      //     _id: { $ne: "EASY" },
-      //   },
-      // },
+      }
     ]);
     res.status(200).json({
       status: "Success",
@@ -152,6 +149,7 @@ const getTourStats = async (req, res) => {
   }
 };
 
+// Searching Tour plan within a year
 const getMonthPlan = async (req, res) => {
   try {
     const year = req.params.year * 1;
@@ -159,9 +157,6 @@ const getMonthPlan = async (req, res) => {
       {
         $unwind: "$startDates",
       },
-      // {
-      //   $sortByCount:'$startDates'
-      // },
       {
         $match: {
           startDates: {
